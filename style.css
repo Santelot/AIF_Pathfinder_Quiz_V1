@@ -1,0 +1,81 @@
+/* CÓDIGO CSS (Actualizado con colores, gradientes y glow mejorado) */
+:root {
+    /* --- MODIFICAR AQUÍ: Paleta de Colores Principal --- */
+    /* Color principal (cian/azul) */
+    --primary-neon: #00ffff; 
+    /* Color de acento (morado/rosa) */
+    --accent-neon: #f875ff;
+    /* Necesitamos los valores RGB del acento para la opacidad en los gradientes */
+    --accent-neon-rgb: 248, 117, 255;
+    /* ------------------------------------------------ */
+
+    --bg-color: #020a0f;
+    --text-color: #d4faff;
+    --border-color: rgba(0, 255, 255, 0.2);
+    --font-primary: 'Space Grotesk', sans-serif;
+    --font-secondary: 'Roboto Mono', monospace;
+    
+    --color-pilot: #FF4500;
+    --color-engineer: #FFD700;
+    --color-scientist: #00BFFF;
+    --color-communicator: #9370DB;
+    --color-naturalist: #32CD32;
+    --color-navigator: #F08080;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-primary); background-color: var(--bg-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; overflow: hidden; }
+#particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+.main-container { width: 100%; max-width: 900px; padding: 20px; z-index: 1; }
+.screen { display: none; flex-direction: column; align-items: center; text-align: center; animation: fadeInPanel 0.8s ease-out; }
+.screen.active { display: flex; }
+@keyframes fadeInPanel { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+.hud-panel {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(var(--accent-neon-rgb), 0.05));
+    border: 1px solid var(--border-color);
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    clip-path: polygon(0 15px, 15px 0, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 calc(100% - 15px));
+    box-shadow: 0 0 25px rgba(0,0,0,0.5), inset 0 0 15px rgba(var(--accent-neon-rgb), 0.1);
+    width: 100%;
+}
+
+.title { font-size: 2.2rem; font-weight: 700; letter-spacing: 3px; color: var(--primary-neon); text-shadow: 0 0 8px var(--primary-neon), 0 0 15px var(--accent-neon); margin-bottom: 8px; }
+.subtitle { font-family: var(--font-secondary); font-size: 0.9rem; color: var(--text-color); opacity: 0.8; margin-bottom: 30px; }
+.hud-button { font-family: var(--font-secondary); background: transparent; border: 1px solid var(--border-color); color: var(--text-color); padding: 12px 24px; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; clip-path: polygon(0 10px, 10px 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%); }
+.hud-button:hover { background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(var(--accent-neon-rgb), 0.1)); border-color: var(--primary-neon); color: var(--primary-neon); box-shadow: 0 0 10px var(--primary-neon), 0 0 20px var(--accent-neon); text-shadow: 0 0 5px var(--primary-neon); }
+
+#progress-bar-container { width: 100%; height: 6px; background-color: rgba(0,0,0,0.3); border: 1px solid var(--border-color); margin-bottom: 20px; padding: 1px; }
+#progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, var(--primary-neon), var(--accent-neon)); transition: width 0.4s ease-out; box-shadow: 0 0 10px var(--primary-neon), 0 0 15px var(--accent-neon); }
+.question-panel { padding: 30px; }
+#question-text { font-size: 1.4rem; font-weight: 400; min-height: 70px; color: var(--text-color); }
+#answer-cards-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
+.answer-card { background-color: rgba(0, 30, 40, 0.5); border: 1px solid var(--border-color); padding: 20px; cursor: pointer; transition: all 0.2s ease; font-family: var(--font-secondary); clip-path: polygon(100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px, 15px 0); }
+
+/* --- EFECTO GLOW MEJORADO --- */
+.answer-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: var(--primary-neon);
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.15), rgba(var(--accent-neon-rgb), 0.15));
+    box-shadow: 0 0 15px var(--primary-neon), 0 0 30px var(--accent-neon);
+}
+
+.answer-card.selected { border-color: var(--primary-neon); color: var(--primary-neon); text-shadow: 0 0 5px var(--primary-neon); transform: translateY(-3px); background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(var(--accent-neon-rgb), 0.2)); }
+.answer-card.disabled { opacity: 0.4; pointer-events: none; filter: blur(1px); }
+
+/* --- Pantalla de Resultados Rediseñada --- */
+.results-layout { display: flex; gap: 20px; width: 100%; align-items: flex-start; flex-wrap: wrap; }
+.chart-container { flex: 1; min-width: 300px; max-width: 400px; }
+#profile-summary-container { flex: 1.2; min-width: 320px; display: flex; flex-direction: column; gap: 20px; }
+.profile-card { background: transparent; border: 1px solid var(--border-color); text-align: left; padding: 20px; }
+.profile-card--primary { clip-path: polygon(0 20px, 20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px)); padding: 30px; border-width: 2px; box-shadow: 0 0 20px rgba(var(--accent-neon-rgb), 0.2), inset 0 0 20px rgba(0, 255, 255, 0.1); }
+.profile-card--primary h3 { font-size: 1.8rem; margin-bottom: 12px; }
+.profile-card--primary p { font-size: 1rem; opacity: 0.9; }
+.profile-card--secondary { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%); opacity: 0.9; }
+.profile-card--secondary h3 { font-size: 1.2rem; margin-bottom: 8px; }
+.profile-card--secondary p { font-size: 0.9rem; opacity: 0.8; }
+.profile-card h3 { text-shadow: 0 0 8px; }
+#restart-btn { margin-top: 20px; }
+@media (max-width: 850px) { .results-layout { flex-direction: column; align-items: center; } }
+@media (max-width: 768px) { .title { font-size: 1.8rem; } #answer-cards-container { grid-template-columns: 1fr; } .hud-panel, .hud-button, .answer-card, .profile-card { clip-path: none; border-radius: 8px; } }
