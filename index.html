@@ -1,0 +1,53 @@
+<!-- CÓDIGO HTML (Sin cambios en esta versión) -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gnius Pathfinder [HUD Interface 3.1]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="hud-background">
+        <canvas id="particle-canvas"></canvas>
+    </div>
+    <div class="main-container">
+        <!-- Pantalla de Inicio -->
+        <div id="start-screen" class="screen active">
+            <div class="hud-panel">
+                <h1 class="title">Gnius Pathfinder</h1>
+                <p class="subtitle">Interfaz de análisis de estilo de aprendizaje inicializada...</p>
+                <button id="start-btn" class="hud-button">[ Comenzar evaluación ]</button>
+            </div>
+        </div>
+        <!-- Pantalla del Quiz -->
+        <div id="quiz-screen" class="screen">
+            <div id="progress-bar-container">
+                <div id="progress-bar"></div>
+            </div>
+            <div class="hud-panel question-panel">
+                <h2 id="question-text"></h2>
+            </div>
+            <div id="answer-cards-container"></div>
+        </div>
+        <!-- Pantalla de Resultados -->
+        <div id="results-screen" class="screen">
+            <div class="hud-panel results-title-panel">
+                <h1 class="title">Perfil de Aprendizaje Identificado</h1>
+            </div>
+            <div class="results-layout">
+                <div class="chart-container hud-panel">
+                    <canvas id="results-chart"></canvas>
+                </div>
+                <div id="profile-summary-container"></div>
+            </div>
+             <button id="restart-btn" class="hud-button">[ Reiniciar Análisis ]</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
